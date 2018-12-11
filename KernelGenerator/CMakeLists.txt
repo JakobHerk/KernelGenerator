@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-find_package(Boost 1.65.1)
+find_package(Boost 1.58.0)
 
 
 set(CMAKE_C_COMPILER gcc)
