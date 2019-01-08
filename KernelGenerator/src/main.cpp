@@ -73,6 +73,8 @@ int setupCppFiles(po::variables_map &vm){
     setupMainCpp(vm);
     setupLoggerCpp(vm);
     setupConfigdataCpp(vm);
+    setupShmHandlerCpp(vm);
+    setupRasppidataCpp(vm);
 }
 
 int setupMainCpp(po::variables_map &vm){
