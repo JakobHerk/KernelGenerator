@@ -4,10 +4,17 @@
 #include <boost/interprocess/managed_shared_memory.hpp>
 #include <sstream>
 #include <fstream>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <cstring>
+#include <boost/filesystem.hpp>
 
+namespace fs = boost::filesystem;
 namespace po = boost::program_options;
 
-int setupProjectEnvironment(std::string projectname);
+int setupProjectEnvironment(std::string projectname, std::string projectpath);
 int setupCppFiles(po::variables_map &vm);
 int setupMainCpp(po::variables_map &vm);
 int setupLoggerCpp(po::variables_map &vm);
@@ -42,7 +49,8 @@ int main(int argc, const char *argv[])
         }
 
         std::string projectname = vm["projectname"].as<std::string>();
-        setupProjectEnvironment(projectname);
+        std::string projectpath = vm["projectpath"].as<std::string>();
+        setupProjectEnvironment(projectname, projectpath);
 
 
     }
@@ -54,13 +62,46 @@ int main(int argc, const char *argv[])
 }
 
 //Daniel Zirngast
-int setupProjectEnvironment(std::string projectname){
+int setupProjectEnvironment(std::string projectname, std::string projectpath){
     /*
      * 0) lösche falls existiert
      * 1) erstelle Ordner
      * 2) erstelle CMakeFile
      * 3) erstelle Unterordner src&incl
      */
+
+
+    std::string completePath = projectpath + "/" + projectname;
+    std::string srcPathDir = completePath + "/src";
+    std::string inclPathDir = completePath + "/incl";
+
+    char pPath[completePath.size() + 1];
+    char srcpath[srcPathDir.size() +1];
+    char inclpath[inclPathDir.size()+1];
+
+    strcpy(pPath, completePath.c_str());
+    strcpy(srcpath, srcPathDir.c_str());
+    strcpy(inclpath,inclPathDir.c_str());
+
+    fs::path p(pPath);
+    fs::path src(srcpath);
+    fs::path incl(inclpath);
+
+    fs::remove(p);
+
+    if(fs::create_directories(p)){
+        std::cout << "Directory erstellt" << std::endl;
+    }
+    if(fs::create_directories(src)){
+        std::cout << "src erstellt" << std::endl;
+    }
+    if(fs::create_directories(incl)){
+        std::cout << "incl erstellt" << std::endl;
+    }
+    p /= "CMakeLists.txt";
+    if(fs::create_directories(p.parent_path())){
+        std::cout << "CMakeLists.txt erstellt" << std::endl;
+    }
 }
 
 //Sebastian Pack
