@@ -72,3 +72,5 @@ Thumbs.db
 *.exe
 
 *build*
+#Duplicated CMakeLists.user
+CMakeLists.txt.user.*
