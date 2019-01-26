@@ -72,4 +72,4 @@ Thumbs.db
 *.exe
 
 #Duplicated CMakeLists.user
-CMakeLists.user.*
+CMakeLists.txt.user.*
