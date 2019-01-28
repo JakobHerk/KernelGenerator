@@ -68,6 +68,7 @@ int GenerateStructure::setupCMake(std::string cmakepath){
                 "    boost_system"<<std::endl<<
                 "    boost_log" <<std::endl <<
                 "    boost_log_setup" <<std::endl <<
+                "    boost_thread"<<std::endl <<
                 "    boost_filesystem"<<std::endl<<
                 "    boost_program_options"<<std::endl<<
                 "    rt"<<std::endl<<

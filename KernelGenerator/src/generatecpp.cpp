@@ -206,9 +206,10 @@ int GenerateCPP::generateSHMHandler()
             "  boost::interprocess::open_or_create, sharedMemoryName.c_str(), size);" <<std::endl <<
             "  if(mySharedMemory == NULL)" <<std::endl <<
             "  {" <<std::endl <<
-            "      Logger *ugv_logger = Logger::Instance();" <<std::endl <<
+          /*  "      Logger *ugv_logger = Logger::Instance();" <<std::endl <<
             "      ugv_logger->logError(\"SharedMemory is NULL\");" <<std::endl <<
-            "      return;"<<std::endl <<
+            "      return;"<<std::endl <<*/
+            "      std::cout<<\"SharedMemory could not be created\"<<std::endl;"<<std::endl<<
             "  }" << std::endl <<
             "  this->sharedMemoryName = sharedMemoryName;" <<std::endl <<
             "  this->segmentname = segmentname;" <<std::endl <<
@@ -257,14 +258,14 @@ int GenerateCPP::generateMain()
            "    string logfileName = cfg.trim(processMap[\"LogFileName\"]);"<< std::endl <<
            "    string logDirectory = cfg.trim(processMap[\"LogDirectoryPath\"]);"<< std::endl <<
            "\n"<< std::endl <<
-           "    Logger *ugv_logger = Logger::Instance();"<< std::endl <<
+          /* "    Logger *ugv_logger = Logger::Instance();"<< std::endl <<
            "    ugv_logger->initLogger(3, boost::log::trivial::severity_level::info, logDirectory, logfileName);"<< std::endl <<
            "\n"<< std::endl <<
            "    ugv_logger->logDebug(\"debug\");"<< std::endl <<
            "    ugv_logger->logFatal(\"fatal\");"<< std::endl <<
            "    ugv_logger->logError(\"error\");"<< std::endl <<
            "    ugv_logger->logInfo(\"info\");"<< std::endl <<
-           "    ugv_logger->logWarn(\"warning\");"<< std::endl <<
+           "    ugv_logger->logWarn(\"warning\");"<< std::endl <<*/
            "\n"<< std::endl <<
            "    SimpleSharedMemoryHandler ssmH(shmName, shmSegment ,stoi(shmSize));"<< std::endl <<
            "    return 0;"<< std::endl <<
