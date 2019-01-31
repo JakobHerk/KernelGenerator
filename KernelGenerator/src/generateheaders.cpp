@@ -99,6 +99,7 @@ int GenerateHeaders::generateSHMHandler()
            "#define SIMPLESHAREDMEMORYHANDLER_H" << std::endl <<
            "#include <boost/interprocess/managed_shared_memory.hpp>" << std::endl <<
            "#include <string>" << std::endl <<
+           "#include \"logger.h\""<<std::endl<<
            "#include <iostream>" << std::endl <<
            "class SimpleSharedMemoryHandler" << std::endl <<
            "{" << std::endl <<
