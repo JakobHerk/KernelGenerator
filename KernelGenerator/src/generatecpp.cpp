@@ -1,10 +1,10 @@
 #include "generatecpp.h"
 
-GenerateCPP::GenerateCPP(std::string projectpath, std::string projectname, std::string configfile)
+GenerateCPP::GenerateCPP(std::string projectpath, std::string projectname/*, std::string configfile*/)
 {
     this->projectname = projectname;
     this->projectpath = projectpath;
-    this->configfile = configfile;
+    // this->configfile = configfile;
 }
 
 int GenerateCPP::generateCPP()
@@ -245,10 +245,18 @@ int GenerateCPP::generateMain()
            "#include \"simplesharedmemoryhandler.h\""<< std::endl <<
            "\n"<< std::endl <<
            "using namespace std;"<< std::endl <<
+           "namespace po = boost::program_options;" <<std::endl<<
            "\n"<< std::endl <<
-           "int main()"<< std::endl <<
+           "int main(int argc, const char *argv[])"<< std::endl <<
            "{"<< std::endl <<
-           "    string path = \"" << configfile << "\";"<< std::endl <<
+           "    po::options_description desc{\"Options\"};"<<std::endl<<
+           "    desc.add_options()"<<std::endl<<
+           "        (\"help,h\", \"\")"<<std::endl<<
+           "        (\"configfile,c\", po::value<std::string>()->default_value(\"./config.cfg\"), \"Configfile\");"<<std::endl<<
+           "        po::variables_map vm;" <<std::endl<<
+           "    po::store(po::parse_command_line(argc, argv, desc), vm);"<<std::endl<<
+           "    po::notify(vm);"<<std::endl<<std::endl<<
+           "    string path = vm[\"configfile\"].as<std::string>();"<< std::endl <<
            "    ConfigData cfg(path);"<< std::endl <<
            "    map<string,string> processMap = cfg.returnProcessMap();"<< std::endl <<
            "    string shmName = cfg.trim(processMap[\"SharedMemoryName\"]);"<< std::endl <<
@@ -257,14 +265,14 @@ int GenerateCPP::generateMain()
            "    string logfileName = cfg.trim(processMap[\"LogFileName\"]);"<< std::endl <<
            "    string logDirectory = cfg.trim(processMap[\"LogDirectoryPath\"]);"<< std::endl <<
            "\n"<< std::endl <<
-          /* "    Logger *ugv_logger = Logger::Instance();"<< std::endl <<
-           "    ugv_logger->initLogger(3, boost::log::trivial::severity_level::info, logDirectory, logfileName);"<< std::endl <<
-           "\n"<< std::endl <<
-           "    ugv_logger->logDebug(\"debug\");"<< std::endl <<
-           "    ugv_logger->logFatal(\"fatal\");"<< std::endl <<
-           "    ugv_logger->logError(\"error\");"<< std::endl <<
-           "    ugv_logger->logInfo(\"info\");"<< std::endl <<
-           "    ugv_logger->logWarn(\"warning\");"<< std::endl <<*/
+           "    Logger *ugv_logger = Logger::Instance();"<< std::endl <<
+                  "    ugv_logger->initLogger(3, boost::log::trivial::severity_level::info, logDirectory, logfileName);"<< std::endl <<
+                  "\n"<< std::endl <<
+                  "    ugv_logger->logDebug(\"debug\");"<< std::endl <<
+                  "    ugv_logger->logFatal(\"fatal\");"<< std::endl <<
+                  "    ugv_logger->logError(\"error\");"<< std::endl <<
+                  "    ugv_logger->logInfo(\"info\");"<< std::endl <<
+                  "    ugv_logger->logWarn(\"warning\");"<< std::endl <<
            "\n"<< std::endl <<
            "    SimpleSharedMemoryHandler ssmH(shmName, shmSegment ,stoi(shmSize));"<< std::endl <<
            "    return 0;"<< std::endl <<

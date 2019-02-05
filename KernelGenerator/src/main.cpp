@@ -23,19 +23,10 @@ int main(int argc, const char *argv[])
     try
     {
         po::options_description desc{"Options"};
-        /*desc.add_options()
-                ("projectname,p", po::value<std::string>()->default_value("Kernel"), "Projectname")
-                ("shmname,n", po::value<std::string>()->default_value("theSHM"), "Shmname")
-                ("shmsize,z", po::value<std::string>()->default_value("65536"), "Shmsize")
-                ("segmentname,s", po::value<std::string>()->default_value("theSegment"), "Segmentname")
-                ("configfile,c", po::value<std::string>()->default_value("./config.cfg"), "Configfile")
-                ("loglevel,l", po::value<int>()->default_value(1), "Loglevel")
-                ("logpath,f", po::value<std::string>()->default_value("/tmp"), "Logpath")
-                ("projectpath,d", po::value<std::string>()->default_value("/tmp"), "Projectpath");*/
         desc.add_options()
                 ("help,h", "")
-                ("configfile,c", po::value<std::string>()->default_value("./config.cfg"), "Configfile")
                 ("projectpath,d", po::value<std::string>()->default_value("/tmp"), "Projectpath")
+//                ("configfile,c", po::value<std::string>()->default_value("./config.cfg"), "Configfile")
                 ("projectname,p", po::value<std::string>()->default_value("Kernel"), "Projectname");
 
         po::variables_map vm;
@@ -49,11 +40,17 @@ int main(int argc, const char *argv[])
 
         std::string projectname = vm["projectname"].as<std::string>();
         std::string projectpath = vm["projectpath"].as<std::string>();
-        std::string configfile = vm["configfile"].as<std::string>();
+        //std::string configfile = vm["configfile"].as<std::string>();
+        std::cout << "Benutzte Werte: "<<std::endl;
+        std::cout << "projectname: " <<projectname<<std::endl;
+        std::cout << "projectpath: " <<projectpath <<std::endl;
+        std::cout <<std::endl;
+        //std::cout << "configfile: " <<configfile <<std::endl;
+
         GenerateStructure gs(projectpath, projectname);
         gs.generateStructure();
 
-        GenerateCPP gCpp(projectpath, projectname, configfile);
+        GenerateCPP gCpp(projectpath, projectname/*, configfile*/);
         gCpp.generateCPP();
         std::cout<<"C++ Files erstellt"<<std::endl;
 

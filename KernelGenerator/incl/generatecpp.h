@@ -7,10 +7,10 @@
 class GenerateCPP
 {
 public:
-    GenerateCPP(std::string projectpath, std::string projectname, std::string configfile);
+    GenerateCPP(std::string projectpath, std::string projectname);
     int generateCPP();
 private:
-    std::string projectpath, projectname, configfile;
+    std::string projectpath, projectname/*, configfile*/;
     int generateConfigdata();
     int generateLogger();
     int generateSHMHandler();

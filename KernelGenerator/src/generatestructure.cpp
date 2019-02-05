@@ -40,7 +40,7 @@ int GenerateStructure::generateStructure()
 
 int GenerateStructure::setupCMake(std::string cmakepath){
     std::ofstream cmakefile(cmakepath);
-
+    std::transform(projectname.begin(), projectname.end(), projectname.begin(), ::tolower);
     cmakefile <<"project("<< projectname <<")" << std::endl << std::endl <<
                 "cmake_minimum_required(VERSION 3.5)"<< std::endl<<
                 "find_package(Boost 1.58.0)"<<std::endl<<
@@ -60,8 +60,6 @@ int GenerateStructure::setupCMake(std::string cmakepath){
                 "ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)"<< std::endl << std::endl <<
                 "# Create an executable"<<std::endl<<
                 "add_executable (${PROJECT_NAME} ${SOURCES} ${INC_ALL})"<<std::endl<<
-
-             //   "INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )"<<std::endl<<
 
                 "target_link_libraries(${PROJECT_NAME}"<<std::endl<<
                 "    ${Boost_LIBRARIES}"<<std::endl<<
