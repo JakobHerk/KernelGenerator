@@ -26,7 +26,6 @@ int main(int argc, const char *argv[])
         desc.add_options()
                 ("help,h", "")
                 ("projectpath,d", po::value<std::string>()->default_value("/tmp"), "Projectpath")
-//                ("configfile,c", po::value<std::string>()->default_value("./config.cfg"), "Configfile")
                 ("projectname,p", po::value<std::string>()->default_value("Kernel"), "Projectname");
 
         po::variables_map vm;
@@ -40,12 +39,10 @@ int main(int argc, const char *argv[])
 
         std::string projectname = vm["projectname"].as<std::string>();
         std::string projectpath = vm["projectpath"].as<std::string>();
-        //std::string configfile = vm["configfile"].as<std::string>();
         std::cout << "Benutzte Werte: "<<std::endl;
         std::cout << "projectname: " <<projectname<<std::endl;
         std::cout << "projectpath: " <<projectpath <<std::endl;
         std::cout <<std::endl;
-        //std::cout << "configfile: " <<configfile <<std::endl;
 
         GenerateStructure gs(projectpath, projectname);
         gs.generateStructure();

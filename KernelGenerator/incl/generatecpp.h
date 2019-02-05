@@ -10,7 +10,7 @@ public:
     GenerateCPP(std::string projectpath, std::string projectname);
     int generateCPP();
 private:
-    std::string projectpath, projectname/*, configfile*/;
+    std::string projectpath, projectname;
     int generateConfigdata();
     int generateLogger();
     int generateSHMHandler();

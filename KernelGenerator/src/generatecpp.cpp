@@ -1,10 +1,9 @@
 #include "generatecpp.h"
 
-GenerateCPP::GenerateCPP(std::string projectpath, std::string projectname/*, std::string configfile*/)
+GenerateCPP::GenerateCPP(std::string projectpath, std::string projectname)
 {
     this->projectname = projectname;
     this->projectpath = projectpath;
-    // this->configfile = configfile;
 }
 
 int GenerateCPP::generateCPP()
@@ -40,9 +39,10 @@ int GenerateCPP::generateConfigdata()
            "  {" <<std::endl <<
            "    string zeile;" <<std::endl <<
            "    getline(datei,zeile);" <<std::endl <<
-           "    if(boost::starts_with(zeile,\"[Process]\"))" <<std::endl <<
+           "    std::cout<< zeile<<std::endl;"<<std::endl<<
+           "    if(boost::starts_with(zeile,\"[\"))" <<std::endl <<
            "    {" <<std::endl <<
-           "      getline(datei,zeile);" <<std::endl <<
+           "      continue;" <<std::endl <<
            "    }" <<std::endl <<
            "    else if(zeile == \"#\")" <<std::endl <<
            "    {" <<std::endl <<

@@ -42,6 +42,7 @@ int GenerateStructure::setupCMake(std::string cmakepath){
     std::ofstream cmakefile(cmakepath);
     std::transform(projectname.begin(), projectname.end(), projectname.begin(), ::tolower);
     cmakefile <<"project("<< projectname <<")" << std::endl << std::endl <<
+                "set(BOOST_INCLUDEDIR /usr/include)"<<std::endl<<
                 "cmake_minimum_required(VERSION 3.5)"<< std::endl<<
                 "find_package(Boost 1.58.0)"<<std::endl<<
 
